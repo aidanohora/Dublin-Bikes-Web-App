@@ -18,6 +18,7 @@ def doWork():
         data = requests.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json()
         print(data)
         json.dump(data, outfile)
+
 l = task.LoopingCall(doWork)
 l.start(timeout) # call every sixty seconds
 
