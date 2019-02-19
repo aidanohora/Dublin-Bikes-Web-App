@@ -2,10 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Dublin Bikes Map</title>
 </head>
 <body>
-<iframe width="600" height="450" frameborder="0" style="border:0"
-src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJL6wn6oAOZ0gRoHExl6nHAAo&key=AIzaSyA00LQRmpg75T7jBkaiUixpsT1mZJ_pZ-Y" allowfullscreen></iframe>
+    <div id="map" style="height: 600px; width: 450px;"></div>
+<script>
+    function initMap(){
+        var dublin = {lat: 53.3498123, lng: -6.2624435};
+        var options = {zoom: 9, center: dublin};
+        var map = new google.maps.Map(
+      document.getElementById('map'), options);
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUtoAUApYxHvPVCN6SxFtaJSVcplSXNI&callback=initMap"
+  type="text/javascript"></script>
 </body>
 </html>
