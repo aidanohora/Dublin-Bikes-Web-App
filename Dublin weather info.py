@@ -3,8 +3,8 @@ import requests
 import json
 import os
 import sqlite3
-timeout = 3600 # Sixty seconds
-
+timeout = 0 # Sixty seconds
+from datetime import datetime
 def doWork():
     with open('Weather Info.json', 'a') as outfile:
         data = requests.get("http://api.openweathermap.org/data/2.5/weather?q=Dublin&appid=6fb76ecce41a85161d4c6ea5e2758f2b").json()
@@ -18,10 +18,16 @@ def doWork():
         del data['name']
         del data['cod']
         #print(data['weather'])
-        for key in data['weather']:
-            if key == 'id':
-                del data[key]
-        #print(data)
+        for k in data['weather']:
+            for key,value in list(k.items()):
+                if key == "id" or key == "icon":
+                    del k[key]
+        del data['main']['pressure']
+        del data['main']['humidity']
+        del data['main']['temp_min']
+        del data['main']['temp_max']
+        print(data)
+
 
 l = task.LoopingCall(doWork)
 l.start(timeout) # call every sixty seconds
