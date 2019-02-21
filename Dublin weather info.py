@@ -27,8 +27,6 @@ def doWork():
         del data['main']['temp_min']
         del data['main']['temp_max']
         print(data)
-
-
 l = task.LoopingCall(doWork)
 l.start(timeout) # call every sixty seconds
 
