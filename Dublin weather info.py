@@ -3,6 +3,10 @@ import requests
 import json
 import os
 import sqlite3
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import inspect
 timeout = 0 # Sixty seconds
 from datetime import datetime
 def doWork():
@@ -27,7 +31,15 @@ def doWork():
         del data['main']['temp_min']
         del data['main']['temp_max']
         print(data)
+
 l = task.LoopingCall(doWork)
 l.start(timeout) # call every sixty seconds
 
-reactor.run()
+#reactor.run()
+
+#connecting to database, see: https://chartio.com/resources/tutorials/how-to-execute-raw-sql-in-sqlalchemy/
+
+engine = create_engine('mysql://root:database123@dublin-bikes.c9vk2yiybuop.us-east-2.rds.amazonaws.com/dbbikes')
+
+inspector = inspect(engine)
+print(inspector.get_columns('weather'))
