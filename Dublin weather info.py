@@ -39,6 +39,8 @@ l.start(timeout) # call every sixty seconds
 
 #connecting to database, see: https://chartio.com/resources/tutorials/how-to-execute-raw-sql-in-sqlalchemy/
 
+#install requirements ny navigating to location of requirements.txt and entering pip install -r requirements.txt (if mysqlclient fails to install, make sure pip is fully updated)
+
 engine = create_engine('mysql://root:database123@dublin-bikes.c9vk2yiybuop.us-east-2.rds.amazonaws.com/dbbikes')
 
 inspector = inspect(engine)
