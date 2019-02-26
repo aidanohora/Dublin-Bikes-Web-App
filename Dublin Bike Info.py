@@ -75,16 +75,12 @@ def doWork():
                     conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
                     with conn.cursor() as cur:
                         print("inside 1")
-                        # cur.execute("""delete from station_fixed""")
-                        # cur.execute("""delete from station_var""")
-                        cur.execute(
-                            """insert into station_fixed (station_no, name, address ,latitude, longitude, bike_stands) values( %s, '%s' , '%s' , %s , %s, %s)""" % (
-                            number, name, address, lat, long, bike_stands))
-                        cur.execute(
-                            """insert into station_var (status, available_stands, available_bikes ,last_update_date, lat_update_time) values( '%s', %s , %s , '%s' , '%s')""" % (
-                            status, available_bike_stands, available_bikes, date, time))
+                        #cur.execute("""delete from station_fixed""")
+                        #cur.execute("""delete from station_var""")
+                        cur.execute( """insert into station_fixed (station_no, name, address ,latitude, longitude, bike_stands) values( %s, '%s' , '%s' , %s , %s, %s)""" % (number, name, address, lat, long, bike_stands))
+                        cur.execute("""insert into station_var (status, available_stands, available_bikes ,last_update_date, lat_update_time, station_no) values( '%s', %s , %s , '%s' , '%s', %s)""" % (status, available_bike_stands, available_bikes, date, time, number))
 
-                        # cur.execute("""select * from weather""")
+                        
                         print("inside 11")
                         conn.commit()
                         cur.close()
