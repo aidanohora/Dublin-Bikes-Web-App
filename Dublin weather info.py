@@ -38,30 +38,29 @@ def doWork():
         dt = int(dt)
         date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
         date, time = date.split(" ")
-        print(date)
-        print(time)
+        #print(date)
+        #print(time)
         temp = data['main']['temp']
-        print(temp)
+        #print(temp)
         # print(data)
-        print(desc)
-        print("inside 1")
+        #print(desc)
+        #print("inside 1")
         REGION = 'us-east-2'
         rds_host = 'dublin-bikes.c9vk2yiybuop.us-east-2.rds.amazonaws.com'
-        print("inside 12")
+        #print("inside 12")
         name = "root"
         password = 'database123'
         db_name = "dbbikes"
         id = 1
         conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
         with conn.cursor() as cur:
-            print("inside 1")
-            # cur.execute("""delete from weather""")
-            cur.execute(
-                """insert into weather (temperature, description, time ,date) values( %s, '%s' , '%s' , '%s')""" % (
-                temp, desc, time, date))
-            # cur.execute("""select * from dbbikes.weather""")
-            print("inside 11")
+            #print("inside 1")
+            #cur.execute("""delete from weather""")
+            cur.execute("""insert into weather (temperature, description, time ,date) values( %s, '%s' , '%s' , '%s')""" % (temp, desc, time, date))
+            cur.execute("""select * from dbbikes.weather""")
+            #print("inside 11")
             conn.commit()
+            print("It's working!")
             cur.close()
 
 

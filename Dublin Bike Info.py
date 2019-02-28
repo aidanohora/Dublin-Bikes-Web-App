@@ -7,7 +7,7 @@ import sqlite3
 import pymysql
 import sys
 
-timeout = 3600  # Sixty seconds
+timeout = 300  #updates every 5 minutes
 
 
 def doWork():
@@ -20,7 +20,7 @@ def doWork():
                 if value is True or value is False:
                     keep_keys.add(key)
         remove_keys = keep_keys
-        print(remove_keys)
+        #print(remove_keys)
         for d in data:
             for k in remove_keys:
                 del d[k]
@@ -28,10 +28,10 @@ def doWork():
             for key, value in d.items():
                 if key == "number":
                     number = d[key]
-                    print("number=", number)
+                    #print("number=", number)
                 elif key == "contract_name":
                     name = d[key]
-                    print("name=", name)
+                    #print("name=", name)
                 elif key == "address":
                     address = d[key]
                     address = address.replace("'", "`")
@@ -39,49 +39,49 @@ def doWork():
                     # address = address.replace("Sir Patrick's Dun", "Sir Patrick`s Dun")
                     # address = address.replace("St. Stephen's Green South", "St. Stephen`s Green South")
 
-                    print("address=", address)
+                    #print("address=", address)
                 elif key == 'position':
                     lat = d[key]['lat']
                     long = d[key]['lng']
-                    print("lat=", lat, "long=", long)
+                    #print("lat=", lat, "long=", long)
                 elif key == 'bike_stands':
                     bike_stands = d[key]
-                    print("bike_stands:", bike_stands)
+                    #print("bike_stands:", bike_stands)
                 elif key == 'status':
                     status = d[key]
-                    print("status:", status)
+                    #print("status:", status)
                 elif key == 'available_bike_stands':
                     available_bike_stands = d[key]
-                    print("available_bike_stands", available_bike_stands)
+                    #print("available_bike_stands", available_bike_stands)
                 elif key == 'available_bikes':
                     available_bikes = d[key]
-                    print("available_bikes =", available_bikes)
+                    #print("available_bikes =", available_bikes)
                 elif key == 'last_update':
                     dt = d[key]
                     dt = int(dt)
                     dt = dt / 1000
                     date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
                     date, time = date.split(" ")
-                    print("date:", date)
-                    print("time:", time)
+                    #print("date:", date)
+                    #print("time:", time)
                     # print(data)
                     REGION = 'us-east-2'
                     rds_host = 'dublin-bikes.c9vk2yiybuop.us-east-2.rds.amazonaws.com'
-                    print("inside 12")
+                    #print("inside 12")
                     name1 = "root"
                     password = 'database123'
                     db_name = "dbbikes"
                     id = 1
                     conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
                     with conn.cursor() as cur:
-                        print("inside 1")
+                       # print("inside 1")
                         #cur.execute("""delete from station_fixed""")
                         #cur.execute("""delete from station_var""")
                         cur.execute( """insert into station_fixed (station_no, name, address ,latitude, longitude, bike_stands) values( %s, '%s' , '%s' , %s , %s, %s)""" % (number, name, address, lat, long, bike_stands))
                         cur.execute("""insert into station_var (status, available_stands, available_bikes ,last_update_date, lat_update_time, station_no) values( '%s', %s , %s , '%s' , '%s', %s)""" % (status, available_bike_stands, available_bikes, date, time, number))
 
                         
-                        print("inside 11")
+                        #print("inside 11")
                         conn.commit()
                         cur.close()
 
