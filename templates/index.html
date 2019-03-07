@@ -41,9 +41,9 @@
   <span class="in">
     <div id="map" class="map"></div>
   </span>
-  <span class="in">
-    <img src="../static/JE.png" alt="Just Eat Add"
-  </span>
+  <!--<span class="in">-->
+    <!--<img src="../static/JE.png" alt="Just Eat Add"-->
+  <!--</span>-->
   </div>
 </main>
 
@@ -57,11 +57,34 @@
 
 <script>
     function initMap(){
-        var dublin = {lat: 53.3498123, lng: -6.2624435};
-        var options = {zoom: 13, center: dublin};
-        var map = new google.maps.Map(
-      document.getElementById('map'), options);
+    var locations = {{ place_markers | safe }};
+    var map = new google.maps.Map(document.getElementById("map"), {
+    center: new google.maps.LatLng(53.3483, -6.26665,13),
+    zoom: 13,
+    mapTypeId: 'roadmap'
+    });
+  
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+    
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+      
     }
+    }
+    
+    
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUtoAUApYxHvPVCN6SxFtaJSVcplSXNI&callback=initMap"
         type="text/javascript"></script>
