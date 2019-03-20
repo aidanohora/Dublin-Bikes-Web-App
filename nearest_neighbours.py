@@ -32,11 +32,16 @@ current_time = weather_row[2]
 #print("Current time:", current_time)
 
 for station_no in station_nos:
-    cursor.execute("SELECT available_bikes FROM dbbikes.station_var WHERE station_no = %s ORDER BY last_update_date DESC, lat_update_time DESC LIMIT 1" % station_no)
-    current_bikes = cursor.fetchone()
+    #cursor.execute("SELECT available_bikes FROM dbbikes.station_var WHERE station_no = %s ORDER BY last_update_date DESC, lat_update_time DESC LIMIT 1" % station_no)
+    #current_bikes = cursor.fetchone()
     #print("Current bikes at station no.", station_no, "is:", current_bikes)
-    cursor.execute("SELECT DISTINCT * FROM dbbikes.station_var JOIN dbbikes.weather on (station_var.last_update_date = weather.date AND minute(timediff(station_var.lat_update_time, weather.time)) < 6 AND hour(timediff(station_var.lat_update_time, weather.time)) = 0) WHERE station_var.station_no = %s AND station_var.status = 'OPEN'" % station_no)
+    cursor.execute("SELECT DISTINCT * FROM dbbikes.station_var JOIN dbbikes.weather on (station_var.last_update_date = weather.date AND minute(timediff(station_var.lat_update_time, weather.time)) < 6 AND hour(timediff(station_var.lat_update_time, weather.time)) = 0) WHERE station_var.station_no = %s AND station_var.status = 'OPEN' AND weather.description = '%s'" % (station_no, current_weather))
     rows = cursor.fetchall()
+    #print(rows)
+    if rows == []:
+        #print("New weather encountered:", current_weather)
+        cursor.execute("SELECT DISTINCT * FROM dbbikes.station_var JOIN dbbikes.weather on (station_var.last_update_date = weather.date AND minute(timediff(station_var.lat_update_time, weather.time)) < 6 AND hour(timediff(station_var.lat_update_time, weather.time)) = 0) WHERE station_var.station_no = %s AND station_var.status = 'OPEN'" % station_no)
+        rows = cursor.fetchall()
     weight_total = 0 
     weighted_bikes_total = 0  
     for row in rows:
