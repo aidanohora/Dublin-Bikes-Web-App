@@ -3,9 +3,9 @@ import math
 import datetime
 
 mydb = mysql.connector.connect(
-    host="dublin-bikes.c9vk2yiybuop.us-east-2.rds.amazonaws.com",
-    user="root",
-    passwd="database123"
+    host="host",
+    user="user",
+    passwd="password"
 )
 
 cursor = mydb.cursor(buffered=True)

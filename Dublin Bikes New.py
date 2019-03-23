@@ -51,10 +51,10 @@ def doWork():
                     date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
                     date, time = date.split(" ")
                     REGION = 'us-east-2'
-                    rds_host = 'dublin-bikes.c9vk2yiybuop.us-east-2.rds.amazonaws.com'
-                    name1 = "root"
-                    password = 'database123'
-                    db_name = "dbbikes"
+                    rds_host = 'rds_host'
+                    name1 = "name"
+                    password = 'password'
+                    db_name = "db_name"
                     id = 1
                     conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
                     with conn.cursor() as cur:

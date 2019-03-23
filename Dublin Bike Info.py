@@ -65,12 +65,12 @@ def doWork():
                     #print("date:", date)
                     #print("time:", time)
                     # print(data)
-                    REGION = 'us-east-2'
-                    rds_host = 'dublin-bikes.c9vk2yiybuop.us-east-2.rds.amazonaws.com'
+                    REGION = 'region'
+                    rds_host = 'rds_host'
                     #print("inside 12")
-                    name1 = "root"
-                    password = 'database123'
-                    db_name = "dbbikes"
+                    name1 = "name"
+                    password = 'password'
+                    db_name = "db_name"
                     id = 1
                     conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
                     with conn.cursor() as cur:
