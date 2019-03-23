@@ -103,7 +103,7 @@ else:
             #print("Total of weights:", weight_total)
             weighted_predictor = row_bikes * weight
             #print("Available bikes (weighted):", weighted_bikes)
-            weighted_predictors_total += weighted_bikes
+            weighted_predictors_total += weighted_predictor
             #print("Weighted bike total so far:", weighted_bikes_total)
         prediction = round(weighted_predictors_total/weight_total)
         print("Available bikes at station", station_no, "prediction:", prediction)
