@@ -1,51 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../static/style.css" type="text/css"/>
-  <title>Dublin Bikes Map</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link href="../static/style.css" rel="stylesheet" type="text/css"/>
+    <title>Dublin Bikes Map</title>
 </head>
 <body>
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">Container</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="../static/b.png"></a>
+            <button aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-target="#navbarsExample07" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExample07">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Disabled</a>
-          </li>
-        </ul>
-        <h3 class="navbar-brand">Search Stations:</h3>
-        <form class="form-inline my-2 my-md-0">
-          <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-        </form>
-      </div>
-    </div>
-  </nav>
+            <div class="collapse navbar-collapse" id="navbarsExample07">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <h3 class="navbar-brand">Search Stations:</h3>
+                <form class="form-inline my-2 my-md-0">
+                    <input aria-label="Search" class="form-control" placeholder="Search" type="text">
+                </form>
+            </div>
+        </div>
+    </nav>
 </header>
 
 <main>
-    <div id="map" class="map"></div>
+    <div class="map" id="map"></div>
     <div></div>
 </main>
 
 <footer>
-  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
-  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
-  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
-  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
+    <div class="footdiv">
+        <h2 class="footsec">FAST</h2>
+        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+    </div>
+    <div class="footdiv">
+        <h2 class="footsec">RELIABLE</h2>
+        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+    </div>
+    <div class="footdiv">
+        <h2 class="footsec">CHEAP</h2>
+        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+    </div>
+    <div class="footdiv">
+        <h2 class="footsec">SAFE</h2>
+        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+    </div>
 
 </footer>
 
@@ -81,7 +99,9 @@
     }
 
 
+
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUtoAUApYxHvPVCN6SxFtaJSVcplSXNI&callback=initMap"
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUtoAUApYxHvPVCN6SxFtaJSVcplSXNI&callback=initMap"
         type="text/javascript"></script>
 </html>
