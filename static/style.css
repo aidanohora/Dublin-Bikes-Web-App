@@ -6,24 +6,30 @@ html {
     display: inline-block;
 }
 
-.abs {
-    position: relative;
-}
-
 .map {
     margin: 0;
     padding: 0;
     height: 600px;
-    width: 73vw;
-
+    width: 100%;
 }
 
-.add {
-    position: absolute;
-    top: 0;
-    left: 75%;
-    margin: 0;
-    width: 25vw;
-    height: 400px;
+footer {
+    width: 100%;
+    height: 200px;
+    background-color: #313b44;
+}
+
+.footdiv {
+    display: inline-block;
+    margin-left: 7px;
+    margin-top: 8px;
     padding: 0;
+    width: 24%;
+    height: 70%;
+    background-color: blue;
+}
+
+.footsec {
+    padding-top: 5px;
+    text-align: center;
 }

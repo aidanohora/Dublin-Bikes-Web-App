@@ -37,21 +37,17 @@
 </header>
 
 <main>
-  <div class="abs">
-  <span class="in">
     <div id="map" class="map"></div>
-  </span>
-  <!--<span class="in">-->
-    <!--<img src="../static/JE.png" alt="Just Eat Add"-->
-  <!--</span>-->
-  </div>
+    <div></div>
 </main>
 
 <footer>
+  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
+  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
+  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
+  <div class="footdiv"><h2 class = "footsec">HELLO</h2></div>
 
 </footer>
-
-
 
 </body>
 
@@ -63,28 +59,28 @@
     zoom: 13,
     mapTypeId: 'roadmap'
     });
-  
+
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
 
-    for (i = 0; i < locations.length; i++) {  
+    for (i = 0; i < locations.length; i++) {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map
       });
-    
+
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent(locations[i][0]);
           infowindow.open(map, marker);
         }
       })(marker, i));
-      
+
     }
     }
-    
-    
+
+
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUtoAUApYxHvPVCN6SxFtaJSVcplSXNI&callback=initMap"
         type="text/javascript"></script>
