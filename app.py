@@ -16,7 +16,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     markers=do_work()
-    return render_template('index.html',place_markers=markers)
+    return render_template('index.html', place_markers=markers)
 
 
 
