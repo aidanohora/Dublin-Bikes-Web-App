@@ -45,12 +45,11 @@ def doWork():
         # print(data)
         #print(desc)
         #print("inside 1")
-        REGION = 'us-east-2'
-        rds_host = 'host'
-        #print("inside 12")
-        name = "name"
-        password = 'password'
-        db_name = "db_name"
+        REGION = 'us-east-1d'
+		rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
+		name1 = "root"
+		password = 'secretpass'
+		db_name = "innodb"
         id = 1
         conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
         with conn.cursor() as cur:
