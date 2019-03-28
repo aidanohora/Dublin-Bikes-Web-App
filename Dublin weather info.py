@@ -56,7 +56,7 @@ def doWork():
             #print("inside 1")
             #cur.execute("""delete from weather""")
             cur.execute("""insert into weather (temperature, description, time ,date) values( %s, '%s' , '%s' , '%s')""" % (temp, desc, time, date))
-            cur.execute("""select * from dbbikes.weather""")
+            cur.execute("""select * from innodb.weather""")
             #print("inside 11")
             conn.commit()
             print("It's working!")

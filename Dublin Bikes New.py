@@ -61,7 +61,7 @@ def doWork():
                         cur.execute( """insert into station_new (station_no, address ,latitude, longitude,status, available_stands, available_bikes) values( %s , '%s' , %s , %s, '%s' , %s, %s)""" % (number, address, lat, long,status, available_bike_stands, available_bikes))
                         tit=tit+1
                         if(tit==114):
-                            cur.execute("""select * FROM dbbikes.station_new""")
+                            cur.execute("""select * FROM innodb.station_new""")
                             rows= cur.fetchall()
                             final=[]
                             for r in rows:
