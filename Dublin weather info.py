@@ -12,7 +12,7 @@ from datetime import datetime
 
 REGION = 'us-east-1d'
 rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
-name1 = "root"
+name = "root"
 password = 'secretpass'
 db_name = "innodb"
 
