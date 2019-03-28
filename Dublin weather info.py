@@ -10,6 +10,12 @@ import sys
 timeout = 360000000  # Sixty seconds
 from datetime import datetime
 
+REGION = 'us-east-1d'
+rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
+name1 = "root"
+password = 'secretpass'
+db_name = "innodb"
+
 
 def doWork():
     with open('Weather Info.json', 'a') as outfile:
@@ -45,12 +51,6 @@ def doWork():
         # print(data)
         #print(desc)
         #print("inside 1")
-        REGION = 'us-east-1d'
-		rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
-		name1 = "root"
-		password = 'secretpass'
-		db_name = "innodb"
-        id = 1
         conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
         with conn.cursor() as cur:
             #print("inside 1")
