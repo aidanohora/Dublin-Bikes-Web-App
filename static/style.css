@@ -2,28 +2,48 @@ html {
     width: 100%;
 }
 
-.in {
-    display: inline-block;
-}
-
-.abs {
-    position: relative;
+.nav-size {
+    font-size: 25px;
+    color: rgba(255,255,255,.75);
 }
 
 .map {
     margin: 0;
     padding: 0;
     height: 600px;
-    width: 73vw;
-
+    width: 100%;
 }
 
-.add {
-    position: absolute;
-    top: 0;
-    left: 75%;
-    margin: 0;
-    width: 25vw;
-    height: 400px;
+footer {
+    width: 100%;
+    background-color: #313b44;
+}
+
+.footdiv {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 8px;
     padding: 0;
+    width: 24%;
+    height: 70%;
+    background-color: inherit;
+    color: #fff;
+}
+
+.footsec {
+    padding-top: 5px;
+    text-align: center;
+}
+
+.descrip {
+    text-align: center;
+    padding: 3px;
+}
+
+.copy {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    color: #717171;
+    text-align: center;
 }
