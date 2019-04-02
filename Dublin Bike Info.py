@@ -1,3 +1,4 @@
+
 from twisted.internet import task, reactor
 from datetime import datetime
 import requests
@@ -7,7 +8,7 @@ import sqlite3
 import pymysql
 import sys
 
-timeout = 300  #updates every 5 minutes
+timeout = 600  #updates every 5 minutes
 
 
 def doWork():
@@ -79,7 +80,7 @@ def doWork():
                         cur.execute( """insert into station_fixed (station_no, name, address ,latitude, longitude, bike_stands) values( %s, '%s' , '%s' , %s , %s, %s)""" % (number, name, address, lat, long, bike_stands))
                         cur.execute("""insert into station_var (status, available_stands, available_bikes ,last_update_date, lat_update_time, station_no) values( '%s', %s , %s , '%s' , '%s', %s)""" % (status, available_bike_stands, available_bikes, date, time, number))
 
-                        
+
                         #print("inside 11")
                         conn.commit()
                         cur.close()

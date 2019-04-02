@@ -7,7 +7,7 @@ import sqlite3
 import pymysql
 import sys
 
-timeout = 360000000  # Sixty seconds
+timeout = 600 # 10 minutes
 from datetime import datetime
 
 REGION = 'us-east-1d'
@@ -59,10 +59,9 @@ def doWork():
             cur.execute("""select * from innodb.weather""")
             #print("inside 11")
             conn.commit()
-            print("It's working!")
             cur.close()
 
 
 l = task.LoopingCall(doWork)
-l.start(timeout)  # call every sixty seconds
+l.start(timeout)  # call every 10 minutes
 reactor.run()
