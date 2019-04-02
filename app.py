@@ -8,6 +8,7 @@ import sqlite3
 import pymysql
 import sys
 import string
+import nearest_neighbours
 
 
 
@@ -56,5 +57,6 @@ def do_work():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    nearest_neighbours()
 
 
