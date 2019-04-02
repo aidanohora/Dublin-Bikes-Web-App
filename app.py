@@ -23,15 +23,15 @@ def index():
 
 
 def do_work():
-    REGION = 'region'
-    rds_host = 'rds_host'
-    name1 = "name"
-    password = 'password'
-    db_name = "db_name"
+    REGION = 'us-east-1d'
+    rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.coms'
+    name1 = "root"
+    password = 'secretpass'
+    db_name = "innodb"
     id = 1
     conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
     cur = conn.cursor() 
-    cur.execute("SELECT * FROM dbbikes.station_fixed;")
+    cur.execute("SELECT * FROM innodb.station_fixed;")
     rows= cur.fetchall()
     cur.close()
     output = []
