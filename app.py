@@ -8,7 +8,7 @@ import sqlite3
 import pymysql
 import sys
 import string
-import nearest_neighbours
+#import nearest_neighbours
 
 
 
@@ -25,7 +25,7 @@ def index():
 
 def do_work():
     REGION = 'us-east-1d'
-    rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.coms'
+    rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
     name1 = "root"
     password = 'secretpass'
     db_name = "innodb"
