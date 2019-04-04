@@ -24,35 +24,54 @@ def index():
 
 
 def do_work():
-    REGION = 'us-east-1d'
-    rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
-    name1 = "root"
-    password = 'secretpass'
-    db_name = "innodb"
-    id = 1
-    conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
-    cur = conn.cursor() 
-    cur.execute("SELECT * FROM innodb.station_fixed;")
-    rows= cur.fetchall()
-    cur.close()
-    output = []
-    final_out=[]
-    j=0
-    for x in rows:
-        if x not in output:
-            output.append(x)
-    for i in output:
-        j=j+1
-        i=list(i)
-        del i[0]
-        del i[0]
-        del i[3]
-        i.insert(len(i),j)
-        i=list(i)
-        final_out.append(i)
-    a=str(final_out)
-    a=a+';'
-    return a
+     final=[]
+     with open('Dublin Bike New.txt', 'a') as outfile:
+         data = requests.get(
+            "https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json()
+        keep_keys = set()
+        for d in data:
+            for key, value in d.items():
+                if value is True or value is False:
+                    keep_keys.add(key)
+        remove_keys = keep_keys
+        for d in data:
+            for k in remove_keys:
+                del d[k]
+        for d in data:
+            for key, value in d.items():
+                if key == "number":
+                    number = d[key]
+                elif key == "contract_name":
+                    name = d[key]
+                elif key == "address":
+                    address = d[key]
+                    address = address.replace("'", "`")
+                elif key == 'position':
+                    lat = d[key]['lat']
+                    long = d[key]['lng']
+                elif key == 'bike_stands':
+                    bike_stands = d[key]
+                elif key == 'status':
+                    status = d[key]
+                elif key == 'available_bike_stands':
+                    available_bike_stands = d[key]
+                elif key == 'available_bikes':
+                    available_bikes = d[key]
+                elif key == 'last_update':
+                    dt = d[key]
+                    dt = int(dt)
+                    dt = dt / 1000
+                    date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
+                    date, time = date.split(" ")
+            d = [ [k,v] for k, v in d.items() ] 
+            print(d)
+            final.append(d)
+            last1=str(final)
+            last2=last1+';'
+            print(d,"\n")
+                        
+    print(last2)
+    return last2
 
 
 if __name__ == '__main__':
