@@ -24,9 +24,9 @@ def index():
 
 
 def do_work():
-     final=[]
-     with open('Dublin Bike New.txt', 'a') as outfile:
-         data = requests.get(
+    final=[]
+    with open('Dublin Bike New.txt', 'a') as outfile:
+        data = requests.get(
             "https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json()
         keep_keys = set()
         for d in data:
@@ -76,6 +76,6 @@ def do_work():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    nearest_neighbours()
+    # nearest_neighbours()
 
 
