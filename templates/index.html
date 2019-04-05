@@ -4,6 +4,12 @@
     <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
     <meta charset="UTF-8">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/en-ie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+
+
+
     <link href="../static/style.css" rel="stylesheet" type="text/css"/>
     <title>Dublin Bikes Map</title>
 </head>
@@ -38,7 +44,9 @@
 
 <main>
     <div class="map" id="map"></div>
-    <div></div>
+    <canvas id="myChart" height="60px"></canvas>
+    <script src="../static/chart.js"></script>
+
 </main>
 
 <footer>
