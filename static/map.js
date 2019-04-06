@@ -1,5 +1,5 @@
-function initMap(){
-//var locations = {{ place_markers | safe }};
+function initMap(data){
+var locations = data;
 var map = new google.maps.Map(document.getElementById("map"), {
 center: new google.maps.LatLng(53.3483, -6.26665,13),
 zoom: 13,
