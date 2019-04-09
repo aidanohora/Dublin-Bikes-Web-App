@@ -7,6 +7,10 @@ html {
     color: rgba(255,255,255,.75);
 }
 
+header {
+    border-bottom: 5px solid black;
+}
+
 .stationName {
     font-weight: bold;
     text-align: center;
@@ -20,12 +24,17 @@ html {
     text-align: center;
 }
 
-
 .map {
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
     margin: 0;
     padding: 0;
     height: 600px;
     width: 100%;
+}
+
+canvas {
+    border-bottom: 5px solid black;
 }
 
 footer {
