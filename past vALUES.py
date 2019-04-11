@@ -3,10 +3,8 @@ from datetime import datetime
 import requests
 import json
 import os
-import sqlite3
 import pymysql
 import sys
-import pandas as pd
 def do_work():
     REGION = 'us-east-1d'
     rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'

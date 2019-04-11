@@ -8,7 +8,12 @@ html {
 }
 
 header {
-    border-bottom: 5px solid black;
+    border-bottom: 10px solid black;
+}
+
+main {
+    margin: 0px;
+    border-bottom: 10px solid black;
 }
 
 .stationName {
@@ -25,8 +30,8 @@ header {
 }
 
 .map {
-    border-top: 5px solid black;
-    border-bottom: 5px solid black;
+    border-top: 10px solid black;
+    border-bottom: 10px solid black;
     margin: 0;
     padding: 0;
     height: 600px;
@@ -34,12 +39,16 @@ header {
 }
 
 canvas {
-    border-bottom: 5px solid black;
+    max-width: 49%!important;
+    display: inline-block!important;
+    margin-left: 10px;
+    margin-bottom: 0!important;
 }
 
 footer {
     width: 100%;
     background-color: #313b44;
+    border-bottom: 10px solid black;
 }
 
 .footdiv {
@@ -64,6 +73,7 @@ footer {
 }
 
 .copy {
+    border-top: 2px solid black;
     padding-top: 20px;
     padding-bottom: 20px;
     width: 100%;

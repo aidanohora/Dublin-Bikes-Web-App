@@ -1,5 +1,7 @@
     var ctx1 = document.getElementById('myChart1');
     var ctx2 = document.getElementById('myChart2');
+
+
     var chart1 = new Chart(ctx1, {
 // The type of chart we want to create
 type: 'line',
@@ -21,30 +23,36 @@ options: {
         title: {
         display: true,
         text: 'Available bikes at: "name of the station"',
-        fontSize: 35
+        fontSize: 15
     },
     scales: {
         xAxes: [{
             scaleLabel: {
                 display: true,
                 labelString: "What ever we want",
-                fontSize: 35
+                fontSize: 15
             }
         }],
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                suggestedMax: 50,
+                suggestedMax: 25,
             },
             scaleLabel: {
                 display: true,
                 labelString: "Available bikes",
-                fontSize: 35
+                fontSize: 15
             }
         }]
     }
 }
 });
+
+
+
+
+
+
 
 var chart2 = new Chart(ctx2, {
 // The type of chart we want to create
@@ -67,25 +75,25 @@ options: {
         title: {
         display: true,
         text: 'Available bikes at: "name of the station"',
-        fontSize: 35
+        fontSize: 15
     },
     scales: {
         xAxes: [{
             scaleLabel: {
                 display: true,
                 labelString: "What ever we want",
-                fontSize: 35
+                fontSize: 15
             }
         }],
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                suggestedMax: 50,
+                suggestedMax: 25,
             },
             scaleLabel: {
                 display: true,
                 labelString: "Available bikes",
-                fontSize: 35
+                fontSize: 15
             }
         }]
     }
