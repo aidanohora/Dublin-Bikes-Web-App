@@ -37,5 +37,5 @@ def do_work():
         output_final.append(i[3])
         final_out.append(output_final)
     print(final_out)
-    
+
 do_work()
