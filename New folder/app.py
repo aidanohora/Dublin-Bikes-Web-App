@@ -1,4 +1,11 @@
 from flask import Flask,render_template,request
+from twisted.internet import task, reactor
+from datetime import datetime
+import requests
+import json
+import os
+import pymysql
+import sys
 
 app=Flask(__name__)
 
@@ -9,15 +16,8 @@ def index():
 @app.route('/',methods=['POST'])
 def getvalue():
     name=request.form['username']
-    
-    import mysql.connector
-    import math
-    import datetime
-    import requests
-    from datetime import datetime, timedelta
-
+    station_no=int(name)
     data = requests.get("http://api.openweathermap.org/data/2.5/forecast?q=Dublin&appid=6fb76ecce41a85161d4c6ea5e2758f2b").json()
-
     mydb = mysql.connector.connect(
         host="newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com",
         user="root",
@@ -26,98 +26,98 @@ def getvalue():
 
     cursor = mydb.cursor(buffered=True)
 
-    cursor.execute("SELECT DISTINCT station_no FROM innodb.station_fixed ORDER BY station_no")
+    #forecasts = {}
+    #dates = []
+    #dates_and_times = {}
     
-    station_no_rows = cursor.fetchall()
+    counter = 0
+    
+    predictions = []
 
-    station_nos = []
-
-    for i in station_no_rows:
-        station_nos.append(i[0])
-
-    forecasts = {}
-    dates = []
-    dates_and_times = {}
-
-    for forecast in data['list']:
+    for forecast in data['list']: #retrieving the data and time information from the api call to display
         dt = forecast['dt']
         dt = int(dt)
         dt = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
         date, time = dt.split(" ")
-        forecasts[dt] = forecast
-        if date not in dates:
-            dates.append(date)
-            dates_and_times[date] = []
-        dates_and_times[date].append(time)
- 
-    print()
+        #print(date)
+        #print(time)
+        #forecasts[dt] = forecast
+        #if date not in dates:
+        #    dates.append(date)
+        #    dates_and_times[date] = []
+        #dates_and_times[date].append(time)
 
-    #for key in dates_and_times:
-        #print(key)
+        #print()
 
-    print() 
+        #for key in dates_and_times:
+        #    print(key)
 
-    date = "2019-04-06"
+        #print() 
 
-    #print() 
+        #date = input("Please enter which of the above dates you would like to predict bike availability on: ")
 
-    for time in dates_and_times[date]:
-        print(time)
+        #print() 
 
-    #print() 
+        #for time in dates_and_times[date]:
+            #print(time)
 
-    time = "15:00:00"
+        #print() 
 
-    forecast_key =  date + " " + time
+        #time = input("Please enter one of the above times to predict bike availability on the selected date for: ")
 
-    prediction_date = datetime.strptime(date, '%Y-%m-%d')
+        #for time in dates_and_times[date]:
 
-    prediction_day = prediction_date.weekday()
+        forecast_key =  date + " " + time
 
-    dt_time = datetime.strptime(time, '%H:%M:%S')
+        prediction_date = datetime.strptime(date, '%Y-%m-%d')
 
-    prediction_time = timedelta(hours=dt_time.hour, minutes=dt_time.minute, seconds=dt_time.second)
+        prediction_day = prediction_date.weekday()
 
-    prediction_temp = forecasts[forecast_key]['main']['temp']
+        dt_time = datetime.strptime(time, '%H:%M:%S')
 
-    prediction_weather = forecasts[forecast_key]['weather'][0]['main']
-    pr=[]
+        prediction_time = timedelta(hours=dt_time.hour, minutes=dt_time.minute, seconds=dt_time.second)
 
-    if (prediction_day < 5):
-        for station_no in station_nos:
+        prediction_temp = forecast['main']['temp']
+
+        prediction_weather = forecast['weather'][0]['main']
+        
+        weight_total = 0 
+        weighted_predictors_total = 0 
+
+        #now that we have a prediction for weather for that particular time and date, we can compare it to our previous records
+
+        if (prediction_day < 5):
             cursor.execute("SELECT DISTINCT * FROM innodb.station_var JOIN innodb.weather on (station_var.last_update_date = weather.date AND minute(timediff(station_var.lat_update_time, weather.time)) < 11 AND hour(timediff(station_var.lat_update_time, weather.time)) = 0) WHERE station_var.station_no = %s AND station_var.status = 'OPEN' AND weather.description = '%s' AND weekday(weather.date) < 5" % (station_no, prediction_weather))
+            #for the station number in question we are retrieving all of our records where the general weather description is the same (raining, clouds, etc.) and the time of day is roughly the same, that is to say less than 11 minutes off. We will not be lookng at records where the station was not open.
+
             rows = cursor.fetchall()
-            if rows == []: #if a new weather is encountered, use records for all weather
+            if rows == []: #if a currently unknown weather is encountered (one there is not previous data on), we will do the same as above but for all weather description types, i.e. if snow is encountered for the first time we will take records with rainy, clear, clouds, mist, drizzle and any other weather types
                 cursor.execute("SELECT DISTINCT * FROM innodb.station_var JOIN innodb.weather on (station_var.last_update_date = weather.date AND minute(timediff(station_var.lat_update_time, weather.time)) < 11 AND hour(timediff(station_var.lat_update_time, weather.time)) = 0) WHERE station_var.station_no = %s AND station_var.status = 'OPEN' weekday(weather.date) < 5" % station_no)
                 rows = cursor.fetchall()
-            weight_total = 0 
-            weighted_predictors_total = 0  
+
+        #we will now get the weighted average of all the records retrieved above 
+             
             for row in rows:
                 row_temp = row[6]
                 row_bikes = row[2]
                 row_time = row[8]
-                temp_weight = 1/(math.sqrt((row_temp - prediction_temp)**2) + 0.5)
-                time_weight = 1/(math.sqrt((round((row_time - prediction_time).total_seconds()/60)**2)) + 0.5)
-                weight = temp_weight + time_weight 
-                weight_total += weight
+                temp_weight = 1/(math.sqrt((row_temp - prediction_temp)**2) + 0.5) #the difference between the temperature in a record and the predicted temperature
+                time_weight = 1/(math.sqrt((round((row_time - prediction_time).total_seconds()/60)**2)) + 0.5) #the difference between the time in a record and the time of the prediction
+                weight = temp_weight + time_weight #weight is determined based on the difference in both time and temperature
+                #adding the weight and weighted predictions from this record to the totals
+                weight_total += weight   
                 weighted_predictor = row_bikes * weight
                 weighted_predictors_total += weighted_predictor
-            prediction = round(weighted_predictors_total/weight_total)
-            pr.append(prediction)
-            #print("Available bikes at station", station_no, "prediction:", prediction)
-        #print("Done.")
 
-    #if weekend, use only records from that day:
-    else:
-        for station_no in station_nos:
+
+        #if weekend, use only records from that day:
+        else:
             cursor.execute("SELECT DISTINCT * FROM innodb.station_var JOIN innodb.weather on (station_var.last_update_date = weather.date AND minute(timediff(station_var.lat_update_time, weather.time)) < 11 AND hour(timediff(station_var.lat_update_time, weather.time)) = 0) WHERE station_var.station_no = %s AND station_var.status = 'OPEN' AND weather.description = '%s' AND weekday(weather.date) = %s" % (station_no, prediction_weather, prediction_day))
             rows = cursor.fetchall()
             if rows == []: #if a new weather is encountered, use records for all weather
-                #print("New weather encountered:", prediction_weather)
                 cursor.execute("SELECT DISTINCT * FROM innodb.station_var JOIN innodb.weather on (station_var.last_update_date = weather.date AND minute(timediff(station_var.lat_update_time, weather.time)) < 11 AND hour(timediff(station_var.lat_update_time, weather.time)) = 0) WHERE station_var.station_no = %s AND station_var.status = 'OPEN' AND weekday(weather.date) = %s" % (station_no, prediction_day))
                 rows = cursor.fetchall()
-            weight_total = 0 
-            weighted_predictors_total = 0  
+            
             for row in rows:
                 row_temp = row[6]
                 row_bikes = row[2]
@@ -128,11 +128,21 @@ def getvalue():
                 weight_total += weight
                 weighted_predictor = row_bikes * weight
                 weighted_predictors_total += weighted_predictor
-            prediction = round(weighted_predictors_total/weight_total)
-            pr.append(prediction)
-            #print("Available bikes at station", station_no, "prediction:", prediction)
-        #print("Done.")
-    return render_template('1.html',j=pr)
+
+        #finally, our prediction is the waited average available bikes from the records we retrieved
+        #print(weighted_predictors_total)
+        #print(weight_total)
+        #print()
+        prediction = round(weighted_predictors_total/weight_total)
+        #print(prediction)
+        predictions.append(prediction)
+        counter += 1
+        if counter == 9:
+            break
+
+    return predictions
+    
+    return render_template('1.html',j=final_out)
 
 if __name__ == '__main__':
     app.run(debug=True)

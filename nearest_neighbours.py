@@ -123,4 +123,4 @@ def nearest_neighbours(station_no):
             break
 
     return predictions
-        
+nearest_neighbours(18)        
