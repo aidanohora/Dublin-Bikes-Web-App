@@ -29,9 +29,11 @@
                         <a class="nav-link nav-size" href="http://www.dublinbikes.ie/">Dublin bikes</a>
                     </li>
                 </ul>
-                <form method="POST" action="/register">
-                    Station Number : <input type="number" name="Station_No" required="" /><br /><br />
-		<input type="submit" name="submit" value="Register">
+                <h3 class="navbar-brand">Search Stations:</h3>
+                <form class="form-inline my-2 my-md-0" method="POST" action="index.html">
+                    <input aria-label="Search" class="form-control" placeholder="Search" type="number"
+                           name="Station_No">
+		            <input type="submit" name="submit" value="Register">
 	</form>
             </div>
         </div>
@@ -45,9 +47,11 @@
 </script>
     <div class="map" id="map"></div>
     <script> var graph_data_past = {{  graph_data_past | safe }}; </script>
+    <script> var graph_data_future = {{ graph_data_future | safe }}; </script>
         <canvas id="myChart1" height="80"></canvas>
         <canvas id="myChart2" height="80"></canvas>
         <script src="../static/chart.js"></script>
+
 
 </main>
 
