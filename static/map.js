@@ -119,6 +119,7 @@ function initMap(){
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent('<p class="stationName">'+locations[i][2][1]+'</p>'
+          +'<p class="stationStats">Station Number: '+locations[i][0][1]+'</p>'
           +'<p class="stationStats">Status: '+locations[i][8][1]+'</p>'
           +'<p class="stationStats">Available Stands: '+locations[i][6][1]+'</p>'
           +'<p class="stationStats">Available Bikes: '+locations[i][7][1]+'</p>');
