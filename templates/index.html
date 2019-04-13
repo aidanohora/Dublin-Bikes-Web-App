@@ -4,6 +4,7 @@
     <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/en-ie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
     <link href="../static/style.css" rel="stylesheet" type="text/css"/>
@@ -55,7 +56,20 @@
 
         <script src="../static/chart.js"></script>
 
+    {% if graph_data_future == null %}
 
+    <div class="alert alert-danger" role="alert">
+        <h4>No Predictions Made</h4>
+    </div>
+    {% endif %}
+
+    {% if graph_data_future != Null %}
+
+    <div class="alert alert-success" role="alert">
+        <h4>Predictions for the Station number: </h4>
+    </div>
+
+    {% endif %}
 
 
 </main>
@@ -86,8 +100,6 @@
 
 </footer>
 </body>
-
-
 
 
 <script> var data = {{ place_markers | safe }}; </script>

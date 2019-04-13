@@ -45,6 +45,11 @@ canvas {
     margin-bottom: 0!important;
 }
 
+.alert {
+    text-align: center!important;
+    margin: 0px!important;
+}
+
 footer {
     width: 100%;
     background-color: #313b44;
