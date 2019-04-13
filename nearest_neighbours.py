@@ -1,3 +1,4 @@
+
 def nearest_neighbours(station_no):
     data = requests.get("http://api.openweathermap.org/data/2.5/forecast?q=Dublin&appid=6fb76ecce41a85161d4c6ea5e2758f2b").json()
     mydb = mysql.connector.connect(
