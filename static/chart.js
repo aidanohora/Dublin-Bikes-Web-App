@@ -98,7 +98,7 @@ data: {
 options: {
         title: {
         display: true,
-        text: 'Available bikes at: "name of the station"',
+        text: 'Future available bikes at station number ' + graph_data_future[0][3],
         fontSize: 15
     },
     scales: {

@@ -30,7 +30,7 @@
                     </li>
                 </ul>
                 <h3 class="navbar-brand">Search Stations:</h3>
-                <form class="form-inline my-2 my-md-0" method="POST" action="index.html">
+                <form class="form-inline my-2 my-md-0" method="POST" action="/">
                     <input aria-label="Search" class="form-control" placeholder="Search" type="number"
                            name="Station_No">
 		            <input type="submit" name="submit" value="Register">
@@ -46,11 +46,15 @@
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>
     <div class="map" id="map"></div>
-    <script> var graph_data_past = {{  graph_data_past | safe }}; </script>
-    <script> var graph_data_future = {{ graph_data_future | safe }}; </script>
+
+    <script> var graph_data_past = {{  graph_data_past | safe }};</script>
         <canvas id="myChart1" height="80"></canvas>
+
+    <script> var graph_data_future = {{ graph_data_future | safe }};</script>
         <canvas id="myChart2" height="80"></canvas>
+
         <script src="../static/chart.js"></script>
+
 
 
 </main>

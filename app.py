@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request, redirect
 from twisted.internet import task, reactor
 from datetime import datetime
 import requests
@@ -19,19 +19,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    if request.method == 'GET':
-        markers = do_work()
-        return render_template('index.html', place_markers=markers)
-    elif request.method == 'POST':
-        Station_No = request.form['Station_No']
-        index2(Station_No)
-
-
-def index2(x):
     markers = do_work()
-    graph_data_past = graph_work_past(x)
-    graph_data_future = graph_work_future(x)
-    return render_template('index.html', place_markers=markers, graph_data_past=graph_data_past, graph_data_future=graph_data_future)
+    return render_template('index.html', place_markers=markers)
+
+@app.route('/', methods = ['POST'])
+def index2():
+    if request.method == 'POST':
+        Station_No = request.form['Station_No']
+        markers = do_work()
+        graph_data_past = graph_work_past(Station_No)
+        graph_data_future = graph_work_future(Station_No)
+        return render_template('index.html', place_markers=markers, graph_data_past=graph_data_past,
+                               graph_data_future=graph_data_future)
+
 
 def do_work():
     try:
@@ -84,6 +84,7 @@ def do_work():
         return last2
     except:
         return "Scrapper not working"
+
 
 
 def graph_work_past(Station_No):
