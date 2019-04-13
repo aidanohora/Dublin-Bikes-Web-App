@@ -1,11 +1,9 @@
-
 def nearest_neighbours(station_no):
-	import mysql.connector
-	import math
-	import datetime
-	import requests
-	from datetime import datetime, timedelta
-	
+    import mysql.connector
+    import math
+    import datetime
+    import requests
+    from datetime import datetime, timedelta
     data = requests.get("http://api.openweathermap.org/data/2.5/forecast?q=Dublin&appid=6fb76ecce41a85161d4c6ea5e2758f2b").json()
     mydb = mysql.connector.connect(
         host="newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com",
@@ -65,6 +63,8 @@ def nearest_neighbours(station_no):
         dt_time = datetime.strptime(time, '%H:%M:%S')
 
         prediction_time = timedelta(hours=dt_time.hour, minutes=dt_time.minute, seconds=dt_time.second)
+        
+        #print(prediction_time)
 
         prediction_temp = forecast['main']['temp']
 
@@ -122,7 +122,12 @@ def nearest_neighbours(station_no):
         #print(weighted_predictors_total)
         #print(weight_total)
         #print()
-        prediction = round(weighted_predictors_total/weight_total)
+        bikes = round(weighted_predictors_total/weight_total)
+        prediction = []
+        prediction.append(bikes)
+        prediction.append(date)
+        prediction.append(time)
+        prediction.append(station_no)
         #print(prediction)
         predictions.append(prediction)
         counter += 1
@@ -130,4 +135,6 @@ def nearest_neighbours(station_no):
             break
 
     return predictions
-nearest_neighbours(18)        
+
+
+        
