@@ -33,7 +33,7 @@
                 <form class="form-inline my-2 my-md-0" method="POST" action="/">
                     <input aria-label="Search" class="form-control" placeholder="Search" type="number"
                            name="Station_No">
-		            <input type="submit" name="submit" value="Register">
+		            <input type="submit" name="submit" value="Submit">
 	</form>
             </div>
         </div>
@@ -54,6 +54,7 @@
         <canvas id="myChart2" height="80"></canvas>
 
         <script src="../static/chart.js"></script>
+
 
 
 
@@ -84,13 +85,15 @@
     <div class="copy">Copyright&copy: Aidan O'Hora, Abhishek Sinha and Miguel Martinez</div>
 
 </footer>
-
 </body>
+
+
+
+
 <script> var data = {{ place_markers | safe }}; </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUtoAUApYxHvPVCN6SxFtaJSVcplSXNI&callback=initMap"
         type="text/javascript"></script>
 <script src="../static/map.js"></script>
-
 
 </html>

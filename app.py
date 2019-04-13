@@ -26,10 +26,21 @@ def index():
 def index2():
     if request.method == 'POST':
         Station_No = request.form['Station_No']
-        markers = do_work()
-        graph_data_past = graph_work_past(Station_No)
-        graph_data_future = graph_work_future(Station_No)
-        return render_template('index.html', place_markers=markers, graph_data_past=graph_data_past,
+        if Station_No == "0":
+            markers = do_work()
+            return render_template('index.html', place_markers=markers)
+        nums = []
+        for i in range(1, 115):
+            nums.append(i)
+
+        if Station_No not in str(nums):
+            markers = do_work()
+            return render_template('index.html', place_markers=markers)
+        elif Station_No in str(nums):
+            markers = do_work()
+            graph_data_past = graph_work_past(Station_No)
+            graph_data_future = graph_work_future(Station_No)
+            return render_template('index.html', place_markers=markers, graph_data_past=graph_data_past,
                                graph_data_future=graph_data_future)
 
 
