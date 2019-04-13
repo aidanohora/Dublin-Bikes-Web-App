@@ -38,6 +38,10 @@ main {
     width: 100%;
 }
 
+#if {
+    display: none;
+}
+
 canvas {
     max-width: 49%!important;
     display: inline-block!important;
@@ -50,10 +54,12 @@ canvas {
     margin: 0px!important;
 }
 
+
 footer {
     width: 100%;
     background-color: #313b44;
     border-bottom: 10px solid black;
+    height: 70%;
 }
 
 .footdiv {
@@ -62,7 +68,6 @@ footer {
     margin-top: 8px;
     padding: 0;
     width: 24%;
-    height: 70%;
     background-color: inherit;
     color: #fff;
 }

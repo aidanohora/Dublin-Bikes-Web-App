@@ -14,11 +14,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="../static/b.png"></a>
-            <button aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation"
-                    class="navbar-toggler" data-target="#navbarsExample07" data-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="/"><img src="../static/b.png"></a>
 
             <div class="collapse navbar-collapse" id="navbarsExample07">
                 <ul class="navbar-nav mr-auto">
@@ -34,7 +30,7 @@
                 <form class="form-inline my-2 my-md-0" method="POST" action="/">
                     <input aria-label="Search" class="form-control" placeholder="Search" type="number"
                            name="Station_No">
-		            <input type="submit" name="submit" value="Submit">
+		            <input type="submit" name="submit" value="Submit" class="btn btn-info">
 	</form>
             </div>
         </div>
@@ -47,7 +43,7 @@
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>
     <div class="map" id="map"></div>
-
+<div id="if">
     <script> var graph_data_past = {{  graph_data_past | safe }};</script>
         <canvas id="myChart1" height="80"></canvas>
 
@@ -56,17 +52,18 @@
 
         <script src="../static/chart.js"></script>
 
-    {% if graph_data_future == null %}
-
+</div>
+    {% if graph_data_past == null %}
     <div class="alert alert-danger" role="alert">
-        <h4>No Predictions Made</h4>
+        <h4>No Predictions Made, please search by station number</h4>
     </div>
     {% endif %}
 
-    {% if graph_data_future != Null %}
-
+    {% if graph_data_past != null %}
+    <script>document.getElementById('if').style.display = "block";</script>
     <div class="alert alert-success" role="alert">
-        <h4>Predictions for the Station number: </h4>
+        <h4>Next PREDICTION for the Station number {{graph_data_future[0][3]}} is:
+            <strong>{{graph_data_future[0][0]}}</strong></h4>
     </div>
 
     {% endif %}
@@ -77,23 +74,28 @@
 <footer>
     <div class="footdiv">
         <h2 class="footsec">FAST</h2>
-        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+        <p class="descrip">Just Eat dublinbikes stations are distributed throughout the city
+            centre to enable easy access and optimal use. Located in close proximity to each
+            other, every station has a minimum of 15 stands in situ making it easy to enjoy the
+            service. </p>
     </div>
     <div class="footdiv">
         <h2 class="footsec">RELIABLE</h2>
-        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+        <p class="descrip">Just Eat dublinbikes is a self-service bike rental system open to
+            everyone from 14 years of age. It enables you to travel through the city centre,
+            commute between home and work and get out and about to enjoy Dublin city at your
+            leisure.</p>
     </div>
     <div class="footdiv">
         <h2 class="footsec">CHEAP</h2>
-        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+        <p class="descrip">You can enjoy the many benefits of an Annual Card for just €25.
+            A 3 Day Ticket costs €5. The first 30 minutes of use is free on every bike. After
+            this first half-hour, a service charge applies.</p>
     </div>
     <div class="footdiv">
         <h2 class="footsec">SAFE</h2>
-        <p class="descrip">Bla, bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+        <p class="descrip">As is proper safety practice, the bikes are regularly serviced
+            to ensure they are fit for their intended use at all times. </p>
     </div>
 
     <div class="copy">Copyright&copy: Aidan O'Hora, Abhishek Sinha and Miguel Martinez</div>
