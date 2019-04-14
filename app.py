@@ -26,7 +26,7 @@ def index():
 def index2():
     if request.method == 'POST':
         Station_No = request.form['Station_No']
-        if Station_No == "0":
+        if Station_No == "0" or Station_No == "1" or Station_No == "20":
             markers = do_work()
             return render_template('index.html', place_markers=markers)
         nums = []
