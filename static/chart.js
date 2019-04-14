@@ -87,7 +87,7 @@ type: 'line',
 data: {
     labels: future_x,
     datasets: [{
-        label: 'Which ever label',
+        label: 'Available bikes',
         backgroundColor: '#1f567c',
         borderColor: 'black',
         data: future_y
