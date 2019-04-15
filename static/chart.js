@@ -3,7 +3,7 @@
     var graph_data_past = graph_data_past;
     var graph_data_future = graph_data_future;
 
-
+// loop through the past data to create a list to pass to the graph
     var max_past = 0;
     var past_x = [];
     var past_y = [];
@@ -17,6 +17,7 @@
         }
     }
 
+// loop through the prediction data to create a list to pass to the prediction graph
     var max_future = 0;
     var future_x = [];
     var future_y = [];
@@ -32,7 +33,7 @@
 
 
 
-
+// graph rendering the past data for the station searched----------------------
     var chart1 = new Chart(ctx1, {
 // The type of chart we want to create
 type: 'line',
@@ -79,6 +80,7 @@ options: {
 });
 
 
+// graph rendering the prediction data for the station searched----------------
 var chart2 = new Chart(ctx2, {
 // The type of chart we want to create
 type: 'line',

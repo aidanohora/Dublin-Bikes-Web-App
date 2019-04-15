@@ -1,6 +1,7 @@
 function initMap(){
     var locations = data;
 
+//Google map set up -------------------------------------------------------------
     var map = new google.maps.Map(document.getElementById("map"), {
     center: new google.maps.LatLng(53.3483, -6.26665,13),
     zoom: 13,
@@ -20,6 +21,7 @@ function initMap(){
               position: google.maps.ControlPosition.LEFT_TOP
           },
           fullscreenControl: true,
+//  Map design details----------------------------------------------------------------
           styles: [
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
       {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -103,6 +105,7 @@ function initMap(){
 
     });
 
+//Markers positioning in google maps----------------------------------------------------
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
@@ -116,6 +119,7 @@ function initMap(){
         animation:google.maps.Animation.DROP
       });
 
+//Create the marker info structure----------------------------------------------------
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent('<p class="stationName">'+locations[i][2][1]+'</p>'

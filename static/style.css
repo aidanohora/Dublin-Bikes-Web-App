@@ -2,6 +2,8 @@ html {
     width: 100%;
 }
 
+
+/*header------------------------------------------------------------*/
 .nav-size {
     font-size: 25px;
     color: rgba(255,255,255,.75);
@@ -11,6 +13,8 @@ header {
     border-bottom: 10px solid black;
 }
 
+
+/*Main ------------------------------------------------------------------------*/
 main {
     margin: 0px;
     border-bottom: 10px solid black;
@@ -54,7 +58,7 @@ canvas {
     margin: 0px!important;
 }
 
-
+/*Footer -------------------------------------------------------------------------*/
 footer {
     width: 100%;
     background-color: #313b44;

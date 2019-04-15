@@ -13,15 +13,15 @@ import requests
 from datetime import datetime, timedelta
 #import nearest_neighbours
 
-
-
 app = Flask(__name__)
 
+# Start of app and station has not been searched yet
 @app.route('/')
 def index():
     markers = do_work()
     return render_template('index.html', place_markers=markers)
 
+# When a station number is searched
 @app.route('/', methods = ['POST'])
 def index2():
     if request.method == 'POST':
@@ -97,7 +97,7 @@ def do_work():
         return "Scrapper not working"
 
 
-
+# obtain data from a specific station number to display in graphs
 def graph_work_past(Station_No):
     REGION = 'us-east-1d'
     rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
@@ -132,6 +132,7 @@ def graph_work_past(Station_No):
     return final_out
 
 
+# Obtain Prediction data from a specific station number to display in graphs
 def graph_work_future(Station_No):
     station_no = Station_No
     data = requests.get("http://api.openweathermap.org/data/2.5/forecast?q=Dublin&appid=6fb76ecce41a85161d4c6ea5e2758f2b").json()

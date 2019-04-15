@@ -38,20 +38,28 @@
 </header>
 
 <main>
+    <!--Weather widget----------------------------------------------------------------->
         <a class="weatherwidget-io" href="https://forecast7.com/en/53d35n6d26/dublin/" data-label_1="DUBLIN" data-label_2="WEATHER" data-theme="original" >DUBLIN WEATHER</a>
+
+    <!--Google map implementation-------------------------------------------------------->
     <script>
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>
     <div class="map" id="map"></div>
+
+    <!--Graphs ---------------------------------------------------------------->
 <div id="if">
+    <!--Past data graph-------------------------------------------------->
     <script> var graph_data_past = {{  graph_data_past | safe }};</script>
         <canvas id="myChart1" height="80"></canvas>
 
+    <!--Prediction data graph-------------------------------------------->
     <script> var graph_data_future = {{ graph_data_future | safe }};</script>
         <canvas id="myChart2" height="80"></canvas>
 
         <script src="../static/chart.js"></script>
 
+    <!--Alert messages depending on station searched------------------------------------->
 </div>
     {% if graph_data_past == null %}
     <div class="alert alert-danger" role="alert">
@@ -70,7 +78,7 @@
 
 
 </main>
-
+<!--Footer --------------------------------------------------------------------------->
 <footer>
     <div class="footdiv">
         <h2 class="footsec">FAST</h2>
@@ -105,6 +113,8 @@
 
 
 <script> var data = {{ place_markers | safe }}; </script>
+
+<!--Google maps key---------and reference to js file------------------------------------------>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUtoAUApYxHvPVCN6SxFtaJSVcplSXNI&callback=initMap"
         type="text/javascript"></script>
