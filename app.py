@@ -1,54 +1,51 @@
 from flask import Flask,render_template,request, redirect
-from twisted.internet import task, reactor
 from datetime import datetime
 import requests
 import json
-import os
 import pymysql
 import sys
 import mysql.connector
 import math
 import datetime
-import requests
 from datetime import datetime, timedelta
-#import nearest_neighbours
+
 
 app = Flask(__name__)
 
 # Start of app and station has not been searched yet
 @app.route('/')
 def index():
-    markers = do_work()
-    return render_template('index.html', place_markers=markers)
+    markers = final_work()     #taking markers from the function then placing on the map.
+    return render_template('index.html', place_markers=markers) #placing the markers on the index.html
 
 # When a station number is searched
 @app.route('/', methods = ['POST'])
 def index2():
-    if request.method == 'POST':
+    if request.method == 'POST':   #if the user have entered a station number then place the value in Station_No
         Station_No = request.form['Station_No']
-        if Station_No == "0" or Station_No == "1" or Station_No == "20":
-            markers = do_work()
+        if Station_No == "0" or Station_No == "1" or Station_No == "20": #Since our scrapper were not able to scrape for station no 1 and 20,we are just placing the markers on the map. 
+            markers = final_work()
             return render_template('index.html', place_markers=markers)
         nums = []
         for i in range(1, 115):
             nums.append(i)
 
-        if Station_No not in str(nums):
-            markers = do_work()
+        if Station_No not in str(nums): #if the user has entered string,then just place the markers on the page.
+            markers = final_work()
             return render_template('index.html', place_markers=markers)
-        elif Station_No in str(nums):
-            markers = do_work()
-            graph_data_past = graph_work_past(Station_No)
+        elif Station_No in str(nums):#if the user has entered a valid station number,then perform the prediction model and display future values in future graphs as well as display past values in past graph.
+            markers = final_work()
+            graph_data_past = graph_work_past(Station_No) 
             graph_data_future = graph_work_future(Station_No)
             return render_template('index.html', place_markers=markers, graph_data_past=graph_data_past,
                                graph_data_future=graph_data_future)
 
 
-def do_work():
+def final_work():
     try:
         final=[]
         data = requests.get(
-        "https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json()
+        "https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json()#requesting  the data from JCDecaux in form of JSON 
         keep_keys = set()
         for d in data:
             for key, value in d.items():
@@ -56,7 +53,7 @@ def do_work():
                     keep_keys.add(key)
         remove_keys = keep_keys
         for d in data:
-            for k in remove_keys:
+            for k in remove_keys: #removing the keys which have the value as either 'TRUE' or 'FALSE'
                 del d[k]
         for d in data:
             for key, value in d.items():
@@ -64,7 +61,7 @@ def do_work():
                     number = d[key]
                 elif key == "contract_name":
                     name = d[key]
-                elif key == "address":
+                elif key == "address":                          #Building the list in desired format.
                     address = d[key]
                     address = address.replace("'", "`")
                 elif key == 'position':
@@ -85,14 +82,14 @@ def do_work():
                     date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
                     date, time = date.split(" ")
             d = [ [k,v] for k, v in d.items() ]
-        #print(d)
+        
             final.append(d)
-            last1=str(final)
-            last2=last1+';'
+            preliminary_string=str(final)
+            Final_string=preliminary_string+';'
             #print(d,"\n")
                         
-    # print(last2)
-        return last2
+    # print(Final_string)
+        return Final_string
     except:
         return "Scrapper not working"
 
@@ -104,11 +101,12 @@ def graph_work_past(Station_No):
     name1 = "root"
     password = 'secretpass'
     db_name = "innodb"
+    #credentials used to connect to the RDS instance
     id = 1
     c = Station_No
     conn = pymysql.connect(host=rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
     cur = conn.cursor()
-    cur.execute("SELECT * FROM innodb.station_var where station_no=%s order by last_update_date desc limit 8;",(c))
+    cur.execute("SELECT * FROM innodb.station_var where station_no=%s order by last_update_date desc limit 8;",(c)) #Here we are by ordering the data by date based upon station number then selecting only the last 8 data values. 
     rows= cur.fetchall()
     cur.close()
     output = []
@@ -129,7 +127,7 @@ def graph_work_past(Station_No):
         output_final.append(b)
         output_final.append(i[3])
         final_out.append(output_final)
-    return final_out
+    return final_out  #the required data format for presenting the past graph is no of bikes,last update time,date,station number.
 
 
 # Obtain Prediction data from a specific station number to display in graphs

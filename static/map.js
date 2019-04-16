@@ -4,7 +4,7 @@ function initMap(){
 //Google map set up -------------------------------------------------------------
     var map = new google.maps.Map(document.getElementById("map"), {
     center: new google.maps.LatLng(53.3483, -6.26665,13),
-    zoom: 13,
+    zoom: 14,
     mapTypeId: 'roadmap',
     mapTypeControl: true,
           mapTypeControlOptions: {

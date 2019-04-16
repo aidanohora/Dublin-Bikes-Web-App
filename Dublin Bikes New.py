@@ -1,24 +1,21 @@
-from twisted.internet import task, reactor
+from twisted.internet import task, reactor    #This module is required for scheduling the script to run every 5 minutes.
 from datetime import datetime
 import requests
 import json
-import os
-import sqlite3
 import pymysql
 import sys
 
-timeout = 300  
+timeout = 300  #update every 5 minutes.
 
 
-def doWork():
-    tit=1
-    with open('Dublin Bike Info.txt', 'a') as outfile:
+def Bike_Work():
+        tit=1 #A Simple Counter
         data = requests.get(
-            "https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json()
+            "https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json() #Requesting data from JCDecaux
         keep_keys = set()
         for d in data:
             for key, value in d.items():
-                if value is True or value is False:
+                if value is True or value is False: #Removeing those keys which have values either 'True' or 'False'
                     keep_keys.add(key)
         remove_keys = keep_keys
         for d in data:
@@ -48,13 +45,14 @@ def doWork():
                     dt = d[key]
                     dt = int(dt)
                     dt = dt / 1000
-                    date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
+                    date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S') #formatting the data time as required using data time module.
                     date, time = date.split(" ")
                     REGION = 'us-east-1d'
                     rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
                     name1 = "root"
                     password = 'secretpass'
                     db_name = "innodb"
+                    #credentials used for connecting to RDS instance.
                     id = 1
                     conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
                     with conn.cursor() as cur:
@@ -76,8 +74,7 @@ def doWork():
                         conn.commit()
                         cur.close()
 
-
-l = task.LoopingCall(doWork)
+l = task.LoopingCall(Bike_Work)
 l.start(timeout)  
 
 reactor.run()

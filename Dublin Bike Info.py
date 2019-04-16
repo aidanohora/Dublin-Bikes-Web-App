@@ -1,5 +1,4 @@
-
-from twisted.internet import task, reactor
+from twisted.internet import task, reactor #This module is required for scheduling the script to run every 5 minutes.
 from datetime import datetime
 import requests
 import json
@@ -8,19 +7,17 @@ import sqlite3
 import pymysql
 import sys
 
-timeout = 600  #updates every 5 minutes
+timeout = 600  #updates every 10 minutes
 
 
 def doWork():
     try:
-        with open('Dublin Bike Info.txt', 'a') as outfile:
-            data = requests.get(
-                "https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json()
-            keep_keys = set()
-            for d in data:
-                for key, value in d.items():
-                    if value is True or value is False:
-                        keep_keys.add(key)
+        data = requests.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=e4ee2f3aa32f04bfd04c9efea73fef8a4b2b5535").json() #Requesting data from JCDeacuax
+        keep_keys = set()
+        for d in data:
+            for key, value in d.items():
+                if value is True or value is False: #Removeing those keys which have values either 'True' or 'False'
+                    keep_keys.add(key)
             remove_keys = keep_keys
         #print(remove_keys)
             for d in data:
@@ -58,17 +55,19 @@ def doWork():
                         dt = d[key]
                         dt = int(dt)
                         dt = dt / 1000
-                        date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S')
+                        date = datetime.utcfromtimestamp(dt).strftime('%Y-%m-%d %H:%M:%S') #formatting the data time as required using data time module.
                         date, time = date.split(" ")
                     #print("date:", date)
                     #print("time:", time)
                     # print(data)
+                    #After scrapping,we are inserting the data into the rds instance.
                         REGION = 'us-east-1d'
                         rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
                         name1 = "root"
                         password = 'secretpass'
                         db_name = "innodb"
                         id = 1
+                        #credentials used for connecting to RDS instance.
                         conn = pymysql.connect(rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
                         with conn.cursor() as cur:
                        # print("inside 1")
@@ -81,11 +80,11 @@ def doWork():
                         #print("inside 11")
                             conn.commit()
                             cur.close()
-
-
-    l = task.LoopingCall(doWork)
-    l.start(timeout)  # call every sixty seconds
-
-    reactor.run()
     except:
-        return "Unable to insert in SQL table"
+        return "Unable to insert into SQL table"
+
+
+l = task.LoopingCall(doWork)
+l.start(timeout)  # call every 10 minutes
+reactor.run()
+    

@@ -1,17 +1,15 @@
-from twisted.internet import task, reactor
 from datetime import datetime
-import requests
-import json
-import os
 import pymysql
 import sys
-def do_work():
+
+def Selection_Work():
     REGION = 'us-east-1d'
     rds_host = 'newdublinbikesinstance.cevl8km57x9m.us-east-1.rds.amazonaws.com'
     name1 = "root"
     password = 'secretpass'
     db_name = "innodb"
     id = 1
+    #credentials used for connecting to RDS instance.
     c=18
     conn = pymysql.connect(host=rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
     cur = conn.cursor() 
@@ -38,4 +36,4 @@ def do_work():
         final_out.append(output_final)
     print(final_out)
 
-do_work()
+Selection_Work()
