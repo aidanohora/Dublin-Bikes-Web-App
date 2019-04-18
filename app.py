@@ -106,7 +106,7 @@ def graph_work_past(Station_No):
     c = Station_No
     conn = pymysql.connect(host=rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
     cur = conn.cursor()
-    cur.execute("SELECT * FROM innodb.station_var where station_no=%s order by last_update_date desc  limit 8;",(c)) #Here we are by ordering the data by date based upon station number then selecting only the last 8 data values. 
+    cur.execute("SELECT * FROM innodb.station_var where station_no=%s ORDER BY last_update_date desc,lat_update_time desc limit 8;",(c)) #Here we are by ordering the data by date based upon station number then selecting only the last 8 data values. 
     rows= cur.fetchall()
     cur.close()
     output = []
@@ -127,6 +127,7 @@ def graph_work_past(Station_No):
         output_final.append(b)
         output_final.append(i[3])
         final_out.append(output_final)
+    final_out.reverse()
     return final_out  #the required data format for presenting the past graph is no of bikes,last update time,date,station number.
 
 

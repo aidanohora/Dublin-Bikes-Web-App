@@ -34,6 +34,7 @@ def Selection_Work():
         output_final.append(b)
         output_final.append(i[3])
         final_out.append(output_final)
+    final_out.reverse()
     print(final_out)
 
 Selection_Work()
