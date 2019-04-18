@@ -76,6 +76,13 @@ footer {
     color: #fff;
 }
 
+@media (max-width: 1350px) {
+    .footdiv {
+        width: 48%;
+        margin: auto;
+    }
+}
+
 .footsec {
     padding-top: 5px;
     text-align: center;
