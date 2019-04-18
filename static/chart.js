@@ -75,7 +75,7 @@ options: {
                 fontSize: 15
             }
         }]
-    }
+    },
 }
 });
 
