@@ -106,7 +106,7 @@ def graph_work_past(Station_No):
     c = Station_No
     conn = pymysql.connect(host=rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
     cur = conn.cursor()
-    cur.execute("SELECT * FROM innodb.station_var where station_no=%s order by last_update_date desc limit 8;",(c)) #Here we are by ordering the data by date based upon station number then selecting only the last 8 data values. 
+    cur.execute("SELECT * FROM innodb.station_var where station_no=%s order by last_update_date desc  limit 8;",(c)) #Here we are by ordering the data by date based upon station number then selecting only the last 8 data values. 
     rows= cur.fetchall()
     cur.close()
     output = []

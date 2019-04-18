@@ -13,7 +13,7 @@ def Selection_Work():
     c=18
     conn = pymysql.connect(host=rds_host, user=name1, passwd=password, db=db_name, connect_timeout=5)
     cur = conn.cursor() 
-    cur.execute("SELECT * FROM innodb.station_var where station_no=%s order by last_update_date desc,lat_update_time desc limit 8;",(c))
+    cur.execute("SELECT * FROM innodb.station_var where station_no=%s order by last_update_date desc,lat_update_time asc limit 8;",(c))
     rows= cur.fetchall()
     cur.close()
     output = []
