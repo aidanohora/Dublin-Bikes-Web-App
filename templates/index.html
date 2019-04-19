@@ -51,11 +51,15 @@
 <div id="if">
     <!--Past data graph-------------------------------------------------->
     <script> var graph_data_past = {{  graph_data_past | safe }};</script>
+    <div class="chart">
         <canvas id="myChart1" height="80"></canvas>
+    </div>
 
     <!--Prediction data graph-------------------------------------------->
     <script> var graph_data_future = {{ graph_data_future | safe }};</script>
+    <div class="chart">
         <canvas id="myChart2" height="80"></canvas>
+    </div>
 
         <script src="../static/chart.js"></script>
 

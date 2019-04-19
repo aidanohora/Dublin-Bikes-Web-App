@@ -46,11 +46,19 @@ main {
     display: none;
 }
 
-canvas {
-    max-width: 49%!important;
-    display: inline-block!important;
-    margin-left: 10px;
-    margin-bottom: 0!important;
+.chart {
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    width: 49vw;
+}
+
+
+
+@media (max-width: 1200px) {
+    .chart {
+        width: 98vw;
+    }
 }
 
 .alert {
